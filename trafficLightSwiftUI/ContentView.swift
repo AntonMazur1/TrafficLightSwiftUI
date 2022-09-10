@@ -19,15 +19,17 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            Color(.white)
+            Color(.black)
                 .ignoresSafeArea()
             VStack {
-                TrafficCircleView(color: .red)
-                    .opacity(currentColor == .red ? lightIsOn : lightIsOff)
-                TrafficCircleView(color: .yellow)
-                    .opacity(currentColor == .yellow ? lightIsOn : lightIsOff)
-                TrafficCircleView(color: .green)
-                    .opacity(currentColor == .green ? lightIsOn : lightIsOff)
+                VStack(spacing: 30) {
+                    TrafficCircleView(color: .red)
+                        .opacity(currentColor == .red ? lightIsOn : lightIsOff)
+                    TrafficCircleView(color: .yellow)
+                        .opacity(currentColor == .yellow ? lightIsOn : lightIsOff)
+                    TrafficCircleView(color: .green)
+                        .opacity(currentColor == .green ? lightIsOn : lightIsOff)
+                }
                 Spacer()
                 
                 Button(action: { changeColor(currentColor) }) {
