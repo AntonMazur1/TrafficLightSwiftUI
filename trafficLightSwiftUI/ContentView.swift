@@ -12,42 +12,29 @@ enum CurrentColor {
 }
 
 struct ContentView: View {
-    @State var buttonTitle = "START"
-    @State var currentColor: CurrentColor = .allColorsOff
-    private let lightIsOn = 1.0
-    private let lightIsOff = 0.5
+    @State private var buttonTitle = "START"
+    @State private var currentColor: CurrentColor = .allColorsOff
     
     var body: some View {
         ZStack {
-            Color(.black)
+            Color(.white)
                 .ignoresSafeArea()
             VStack {
-                VStack(spacing: 30) {
-                    TrafficCircleView(color: .red)
-                        .opacity(currentColor == .red ? lightIsOn : lightIsOff)
-                    TrafficCircleView(color: .yellow)
-                        .opacity(currentColor == .yellow ? lightIsOn : lightIsOff)
-                    TrafficCircleView(color: .green)
-                        .opacity(currentColor == .green ? lightIsOn : lightIsOff)
-                }
+                TrafficCircleView(color: .red, opacity: currentColor == .red ? 1 : 0.3)
+                TrafficCircleView(color: .yellow, opacity: currentColor == .yellow ? 1 : 0.3)
+                TrafficCircleView(color: .green, opacity: currentColor == .green ? 1 : 0.3)
                 Spacer()
                 
-                Button(action: { changeColor(currentColor) }) {
-                    Text(buttonTitle)
-                }
-                .frame(width: 120, height: 50)
-                .font(.title)
-                .foregroundColor(.white)
-                .background(.blue)
-                .clipShape(Capsule())
-                .overlay(Capsule().stroke(Color.white, lineWidth: 4))
+                StartButtonView(title: buttonTitle, action: changeColor)
             }
             .padding(.bottom)
         }
     }
     
-    private func changeColor(_ color: CurrentColor) {
-        buttonTitle = "NEXT"
+    private func changeColor() {
+        if buttonTitle == "START" {
+            buttonTitle = "NEXT"
+        }
         switch currentColor {
         case .red:
             currentColor = .yellow
